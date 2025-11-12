@@ -5,7 +5,13 @@ const EmployeeCreate = () => {
   return (
     <>
       <Header />
-      <h1>Create an employee</h1>
+      <div className="container">
+        <h1>
+          Create an employeeCreate an employeeCreate an employeeCreate an
+          employeeCreate an employeeCreate an employeeCreate an employeeCreate
+          an employee
+        </h1>
+      </div>
     </>
   )
 }

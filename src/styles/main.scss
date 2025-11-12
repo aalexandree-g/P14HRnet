@@ -9,12 +9,19 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  font-size: 14px;
   color: $text-color;
 }
 
 body {
   margin: 0;
-  background-color: gray;
+  background-color: $background-color;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0.5rem 0rem;
 }
 
 #root {

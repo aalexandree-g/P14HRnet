@@ -1,17 +1,21 @@
 @use '../../styles/variables' as *;
 
 .main-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 20px;
-  height: 64px;
   background-color: white;
 
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
+
   &__logo {
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: 0.6rem;
   }
 
   &__image {
@@ -27,29 +31,42 @@
   }
 
   &__title {
+    text-decoration: none;
     font-size: 20px;
     font-weight: 600;
   }
 
   &__subtitle {
+    text-decoration: none;
     font-size: 12px;
     color: $grey-color;
   }
 
+  &__links {
+    display: flex;
+    gap: 0.8rem;
+  }
+
   &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    font-weight: 600;
+    color: $grey-color;
+
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    transition: all 250ms ease;
 
     &:hover {
-      color: #007bff;
+      color: $secondary-color;
+      background-color: rgb(238, 243, 237);
     }
 
     &.active {
-      color: #007bff; // couleur spéciale pour la page active
-      font-weight: 700;
-      border-bottom: 2px solid #007bff;
+      color: $secondary-color;
+      background-color: rgb(238, 243, 237);
     }
   }
 
@@ -63,18 +80,4 @@
       text-decoration: underline;
     }
   }
-}
-
-.sr-only {
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important; /* 3 */
 }
