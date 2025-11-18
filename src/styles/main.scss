@@ -4,24 +4,20 @@
 // components
 @use '../components/header/header';
 
+// pages
+@use '../pages/employeeCreate/employeeCreate';
+
 html {
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  font-size: 14px;
+  font-size: 0.9rem;
   color: $text-color;
 }
 
 body {
   margin: 0;
   background-color: $background-color;
-}
-
-.container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0.5rem 0rem;
 }
 
 #root {

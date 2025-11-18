@@ -21,7 +21,7 @@ const Header = () => {
             to="/employees"
             end
           >
-            <Users size={16} strokeWidth={2.5} className="main-nav__icon" />
+            <Users strokeWidth={2.5} className="main-nav__icon" />
             Employee List
           </NavLink>
           <NavLink
@@ -30,7 +30,7 @@ const Header = () => {
             }
             to="/employees/create"
           >
-            <UserPlus size={16} strokeWidth={2.5} className="main-nav__icon" />
+            <UserPlus strokeWidth={2.5} className="main-nav__icon" />
             Create Employee
           </NavLink>
         </div>
