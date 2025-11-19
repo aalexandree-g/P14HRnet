@@ -1,15 +1,52 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addEmployee } from '../../store/employeesSlice'
 import Header from '../../components/header/Header'
 import { Calendar } from 'lucide-react'
 import DatePicker from 'p14hrnet-plugin'
 
+const formatDate = (date) => {
+  if (!date) return null
+  return date.toLocaleDateString('fr-FR') // "dd/mm/yyyy"
+}
+
 const EmployeeCreate = () => {
+  const dispatch = useDispatch()
+
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [birthDate, setBirthDate] = useState(null)
+  const [startDate, setStartDate] = useState(null)
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  const [stateValue, setStateValue] = useState('')
+  const [zipCode, setZipCode] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Birth date:', birthDate)
-    // tu ajoutes ensuite cette date dans ton objet employé
+    const newEmployee = {
+      firstName,
+      lastName,
+      birthDate: formatDate(birthDate),
+      startDate: formatDate(startDate),
+      street,
+      city,
+      state: stateValue,
+      zipCode,
+    }
+
+    dispatch(addEmployee(newEmployee))
+
+    alert('Employee saved!')
+
+    setFirstName('')
+    setLastName('')
+    setBirthDate(null)
+    setStartDate(null)
+    setStreet('')
+    setCity('')
+    setStateValue('')
+    setZipCode('')
   }
   return (
     <>
@@ -22,6 +59,7 @@ const EmployeeCreate = () => {
           </span>
         </div>
         <form className="form" onSubmit={handleSubmit}>
+          {/* NAMES */}
           <div className="form__line">
             <div className="form__field">
               <label className="form__label" htmlFor="firstname">
@@ -30,8 +68,11 @@ const EmployeeCreate = () => {
               <input
                 className="form__input"
                 type="text"
+                pattern="[A-Za-zÀ-ÿ\s-]+"
+                title="Only letters are allowed"
                 id="firstname"
-                value=""
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 placeholder="John"
                 required
               />
@@ -44,31 +85,14 @@ const EmployeeCreate = () => {
                 className="form__input"
                 type="text"
                 id="lastname"
-                value=""
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 placeholder="Doe"
                 required
               />
             </div>
           </div>
-          <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="birthdate">
-                Date of Birth
-              </label>
-              <div className="form__date">
-                <input
-                  className="form__input"
-                  type="text"
-                  id="birthdate"
-                  value=""
-                  placeholder="Pick a date"
-                  required
-                />
-                <Calendar className="form__date__icon" />
-              </div>
-            </div>
-          </div>
-
+          {/* BIRTHDATE */}
           <div className="form__line">
             <div className="form__field">
               <label className="form__label" htmlFor="birthdate">
@@ -85,25 +109,24 @@ const EmployeeCreate = () => {
               </div>
             </div>
           </div>
-
+          {/* START DATE */}
           <div className="form__line">
             <div className="form__field">
-              <label className="form__label" htmlFor="startdate">
+              <label className="form__label" htmlFor="birthdate">
                 Start Date
               </label>
               <div className="form__date">
-                <input
-                  className="form__input"
-                  type="text"
+                <DatePicker
                   id="startdate"
-                  value=""
-                  placeholder="Pick a date"
-                  required
+                  className="form__input"
+                  value={startDate}
+                  onChange={setStartDate}
                 />
                 <Calendar className="form__date__icon" />
               </div>
             </div>
           </div>
+          {/* ADDRESS */}
           <div className="form__line">
             <div className="form__field">
               <label className="form__label" htmlFor="street">
@@ -113,7 +136,8 @@ const EmployeeCreate = () => {
                 className="form__input"
                 type="text"
                 id="street"
-                value=""
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
                 placeholder="123 Main St"
                 required
               />
@@ -128,7 +152,8 @@ const EmployeeCreate = () => {
                 className="form__input"
                 type="text"
                 id="city"
-                value=""
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 placeholder="New York"
                 required
               />
@@ -141,7 +166,8 @@ const EmployeeCreate = () => {
                 className="form__input"
                 type="text"
                 id="state"
-                value=""
+                value={stateValue}
+                onChange={(e) => setStateValue(e.target.value)}
                 placeholder="Florida"
                 required
               />
@@ -154,12 +180,14 @@ const EmployeeCreate = () => {
                 className="form__input"
                 type="text"
                 id="zipcode"
-                value=""
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
                 placeholder="10001"
                 required
               />
             </div>
           </div>
+          {/* SUBMIT BUTTON */}
           <button type="submit" className="form__button">
             Create Employee
           </button>

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import EmployeeList from './pages/employeeList/EmployeeList'
-import EmployeeCreate from './pages/employeeCreate/EmployeeCreate'
+import EmployeeCreate from './pages/EmployeeCreate/EmployeeCreate'
 
 const App = () => {
   return (

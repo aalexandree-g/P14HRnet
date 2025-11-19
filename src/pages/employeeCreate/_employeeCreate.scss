@@ -1,9 +1,5 @@
 @use '../../styles/variables' as *;
 
-.react-datepicker__triangle {
-  display: none;
-}
-
 .form,
 .react-datepicker {
   display: flex;
@@ -13,11 +9,7 @@
   gap: 1.5rem;
   border: 1px solid #e8e8e8;
   border-radius: 1rem;
-  background-color: rgb(255, 255, 255);
-}
-
-.react-datepicker {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: $light-color;
 }
 
 .form {
@@ -118,4 +110,43 @@
       filter: brightness(1.1);
     }
   }
+}
+
+.react-datepicker {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
+  &__triangle {
+    display: none;
+  }
+
+  &__header {
+    background-color: $tertiary-color !important;
+    border-bottom: none;
+  }
+
+  &__current-month,
+  &__day-name,
+  &__day {
+    color: $text-color !important;
+  }
+
+  &__day {
+    &--selected {
+      color: $light-color !important;
+      background-color: $clear-color;
+    }
+
+    &--keyboard-selected {
+      background-color: $light-color;
+    }
+
+    &--today {
+      color: #4a90e2 !important;
+      font-weight: 700;
+    }
+  }
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px $tertiary-color inset !important;
 }
