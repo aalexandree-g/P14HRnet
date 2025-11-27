@@ -1,20 +1,20 @@
 @use '../../styles/variables' as *;
 
 .form,
-.react-datepicker {
+.pika-single {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
   border: 1px solid #e8e8e8;
   border-radius: 1rem;
   background-color: $light-color;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05) !important;
 }
 
 .form {
+  gap: 1.5rem;
   padding: 3rem;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
 
   &__container {
     display: flex;
@@ -57,8 +57,7 @@
     font-weight: 500;
   }
 
-  &__input,
-  .plugin-datepicker__input {
+  &__input {
     height: 3rem;
     padding: 0.75rem 1.25rem;
     border-radius: 0.7rem;
@@ -67,17 +66,24 @@
     font-size: 1rem;
     outline: none;
     box-sizing: border-box;
+    width: 100%;
+
+    &--error {
+      border: 2px solid #ff4f4f;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px $background-color inset !important;
+      -webkit-text-fill-color: inherit !important;
+    }
   }
 
   &__date {
     position: relative;
     width: 100%;
-
-    .form__input,
-    .plugin-datepicker__input,
-    .react-datepicker-wrapper {
-      width: 100%;
-    }
 
     &__icon {
       position: absolute;
@@ -112,41 +118,33 @@
   }
 }
 
-.react-datepicker {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-
-  &__triangle {
-    display: none;
+.pika {
+  &-single {
+    transform: translateX(0.5rem);
   }
 
-  &__header {
-    background-color: $tertiary-color !important;
-    border-bottom: none;
+  &-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+
+    &:hover {
+      color: black;
+      background-color: $tertiary-color;
+      border-radius: 1rem;
+    }
   }
 
-  &__current-month,
-  &__day-name,
-  &__day {
-    color: $text-color !important;
-  }
-
-  &__day {
-    &--selected {
-      color: $light-color !important;
-      background-color: $clear-color;
-    }
-
-    &--keyboard-selected {
-      background-color: $light-color;
-    }
-
-    &--today {
-      color: #4a90e2 !important;
-      font-weight: 700;
-    }
+  &-weekdays {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    cursor: default !important;
   }
 }
 
-input:-webkit-autofill {
-  box-shadow: 0 0 0 1000px $tertiary-color inset !important;
+.is-selected .pika-day {
+  background-color: $clear-color !important;
+  color: white !important;
+  border-radius: 1rem;
 }

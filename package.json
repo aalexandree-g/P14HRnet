@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aalexandree-g/hrnet-plugin-datepicker": "^1.0.2",
     "@reduxjs/toolkit": "^2.10.1",
     "lucide-react": "^0.553.0",
-    "p14hrnet-plugin": "^1.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
