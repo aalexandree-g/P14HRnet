@@ -1,4 +1,4 @@
-const FormInput = ({
+const TextField = ({
   id,
   label,
   value,
@@ -28,4 +28,4 @@ const FormInput = ({
   )
 }
 
-export default FormInput
+export default TextField

@@ -1,43 +1,65 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addEmployee } from '../../store/employeesSlice'
-import Header from '../../components/header/Header'
-import FormInput from '../../components/form/FormInput'
-import { Calendar } from 'lucide-react'
-import DatePicker from '@aalexandree-g/hrnet-plugin-datepicker'
 
-const NAME_REGEX = /^[A-Za-zÀ-ÿ'\s-]+$/
+import Header from '../../components/header/Header'
+import TextField from '../../components/form/TextField'
+import DateField from '../../components/form/DateField'
+import SelectField from '../../components/form/SelectField'
+import UiModal from '../../components/ui/UiModal'
+import { CircleAlert, CircleCheckBig } from 'lucide-react'
+
+import { useEmployeeForm } from '../../hooks/useEmployeeForm'
+import { NAME_REGEX } from '../../data/formRegex'
+import { DEPARTMENTS, US_STATES } from '../../data/formSelectData'
 
 const EmployeeCreate = () => {
   const dispatch = useDispatch()
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [birthDate, setBirthDate] = useState(null)
-  const [startDate, setStartDate] = useState(null)
-  const [department, setDepartment] = useState('')
-  const [street, setStreet] = useState('')
-  const [city, setCity] = useState('')
-  const [stateValue, setStateValue] = useState('')
-  const [zipCode, setZipCode] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [modalConfig, setModalConfig] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    variant: 'success',
+  })
+
+  const {
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    birthDate,
+    setBirthDate,
+    startDate,
+    setStartDate,
+    department,
+    setDepartment,
+    street,
+    setStreet,
+    city,
+    setCity,
+    stateValue,
+    setStateValue,
+    zipCode,
+    setZipCode,
+    submitted,
+    setSubmitted,
+    isFormValid,
+    resetForm,
+  } = useEmployeeForm()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
 
-    if (
-      !firstName ||
-      !lastName ||
-      !birthDate ||
-      !startDate ||
-      !department ||
-      !street ||
-      !city ||
-      !stateValue ||
-      !zipCode
-    ) {
-      alert('Please fill in all fields')
+    if (!isFormValid()) {
+      setModalConfig({
+        isOpen: true,
+        title: <CircleAlert size={50} />,
+        message: 'Please fill in all fields correctly.',
+        variant: 'error',
+      })
+
       return
     }
 
@@ -54,20 +76,20 @@ const EmployeeCreate = () => {
     }
 
     dispatch(addEmployee(newEmployee))
-    alert('Employee saved!')
+    setModalConfig({
+      isOpen: true,
+      title: <CircleCheckBig size={50} />,
+      message: 'The new employee has been added to the company directory.',
+      variant: 'success',
+    })
 
-    setFirstName('')
-    setLastName('')
-    setBirthDate(null)
-    setStartDate(null)
-    setDepartment('')
-    setStreet('')
-    setCity('')
-    setStateValue('')
-    setZipCode('')
-
-    setSubmitted(false)
+    resetForm()
   }
+
+  const closeModal = () => {
+    setModalConfig((prev) => ({ ...prev, isOpen: false }))
+  }
+
   return (
     <>
       <Header />
@@ -81,7 +103,7 @@ const EmployeeCreate = () => {
         <form className="form" onSubmit={handleSubmit}>
           {/* NAMES */}
           <div className="form__line">
-            <FormInput
+            <TextField
               id="firstname"
               label="First Name"
               value={firstName}
@@ -91,7 +113,7 @@ const EmployeeCreate = () => {
               title="Only letters, apostrophes, spaces and hyphens are allowed"
               error={submitted && !NAME_REGEX.test(firstName)}
             />
-            <FormInput
+            <TextField
               id="lastname"
               label="Last Name"
               value={lastName}
@@ -104,113 +126,77 @@ const EmployeeCreate = () => {
           </div>
           {/* BIRTHDATE */}
           <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="birthdate">
-                Date of Birth
-              </label>
-              <div className="form__date">
-                <DatePicker
-                  id="birthdate"
-                  className={`form__input ${submitted && !birthDate ? 'form__input--error' : ''}`}
-                  value={birthDate}
-                  onChange={setBirthDate}
-                />
-                <Calendar className="form__date__icon" />
-              </div>
-            </div>
+            <DateField
+              id="birthdate"
+              label="Date of Birth"
+              value={birthDate}
+              onChange={setBirthDate}
+              error={submitted && !birthDate}
+            />
           </div>
-
           {/* START DATE */}
           <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="startdate">
-                Start Date
-              </label>
-              <div className="form__date">
-                <DatePicker
-                  id="startdate"
-                  className={`form__input ${submitted && !startDate ? 'form__input--error' : ''}`}
-                  value={startDate}
-                  onChange={setStartDate}
-                />
-                <Calendar className="form__date__icon" />
-              </div>
-            </div>
+            <DateField
+              id="startdate"
+              label="Start Date"
+              value={startDate}
+              onChange={setStartDate}
+              error={submitted && !startDate}
+            />
           </div>
           {/* DEPARTMENT */}
           <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="department">
-                Department
-              </label>
-              <input
-                className={`form__input ${submitted && !department ? 'form__input--error' : ''}`}
-                type="text"
-                id="department"
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                placeholder="Sales"
-              />
-            </div>
+            <SelectField
+              id="department"
+              label="Department"
+              value={department}
+              onChange={(e) => setDepartment(e.target.value)}
+              options={DEPARTMENTS}
+              placeholder="Select a department"
+              error={submitted && !department}
+            />
           </div>
           {/* ADDRESS */}
           <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="street">
-                Street
-              </label>
-              <input
-                className={`form__input ${submitted && !street ? 'form__input--error' : ''}`}
-                type="text"
-                id="street"
-                value={street}
-                onChange={(e) => setStreet(e.target.value)}
-                placeholder="123 Main St"
-              />
-            </div>
+            <TextField
+              id="street"
+              label="Street"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              placeholder="123 Main St"
+              title={'Enter your address'}
+              error={submitted && !street}
+            />
           </div>
           <div className="form__line">
-            <div className="form__field">
-              <label className="form__label" htmlFor="city">
-                City
-              </label>
-              <input
-                className={`form__input ${submitted && !city ? 'form__input--error' : ''}`}
-                type="text"
-                id="city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="New York"
-              />
-            </div>
-            <div className="form__field">
-              <label className="form__label" htmlFor="state">
-                State
-              </label>
-              <input
-                className={`form__input ${submitted && !stateValue ? 'form__input--error' : ''}`}
-                type="text"
-                id="state"
-                value={stateValue}
-                onChange={(e) => setStateValue(e.target.value)}
-                placeholder="Florida"
-              />
-            </div>
-            <div className="form__field">
-              <label className="form__label" htmlFor="zipcode">
-                ZIP Code
-              </label>
-              <input
-                className={`form__input ${submitted && !zipCode ? 'form__input--error' : ''}`}
-                type="text"
-                id="zipcode"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                placeholder="10001"
-                pattern="^[0-9]{5}$"
-                title="ZIP code must contain exactly 5 digits"
-              />
-            </div>
+            <TextField
+              id="city"
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="New York"
+              title={'Enter your city'}
+              error={submitted && !city}
+            />
+            <SelectField
+              id="state"
+              label="State"
+              value={stateValue}
+              onChange={(e) => setStateValue(e.target.value)}
+              options={US_STATES}
+              placeholder="Select a state"
+              error={submitted && !stateValue}
+            />
+            <TextField
+              id="zipcode"
+              label="ZIP Code"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              placeholder="10001"
+              pattern="^[0-9]{5}$"
+              title={'ZIP code must contain exactly 5 digits'}
+              error={submitted && !zipCode}
+            />
           </div>
           {/* SUBMIT BUTTON */}
           <button type="submit" className="form__button">
@@ -218,6 +204,14 @@ const EmployeeCreate = () => {
           </button>
         </form>
       </div>
+      {/* MODAL */}
+      <UiModal
+        isOpen={modalConfig.isOpen}
+        title={modalConfig.title}
+        message={modalConfig.message}
+        variant={modalConfig.variant}
+        onClose={closeModal}
+      />
     </>
   )
 }
