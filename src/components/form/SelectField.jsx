@@ -1,5 +1,25 @@
 import { ChevronDown } from 'lucide-react'
 
+/**
+ * SelectField component.
+ *
+ * Renders a labeled `<select>` dropdown with a custom icon and error styling.
+ * Displays a placeholder as the first disabled option and maps the provided
+ * `options` array to selectable `<option>` elements.
+ *
+ * @component
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.id - The HTML id of the select element.
+ * @param {string} props.label - The label displayed above the field.
+ * @param {string} props.value - The currently selected value.
+ * @param {(e: React.ChangeEvent<HTMLSelectElement>) => void} props.onChange - Callback fired when the selected option changes.
+ * @param {string[]} props.options - Array of selectable options.
+ * @param {string} props.placeholder - Text displayed when no value is selected.
+ * @param {boolean} props.error - Indicates whether the field is in an error state.
+ *
+ * @returns {JSX.Element} A styled select field with label and dropdown icon.
+ */
 const SelectField = ({
   id,
   label,

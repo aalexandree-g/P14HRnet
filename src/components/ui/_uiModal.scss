@@ -2,7 +2,7 @@
 
 .modal {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 1rem;
   padding: 2rem;
   width: 30rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
@@ -19,13 +19,11 @@
   }
 
   &__title {
-    font-size: 1.3rem;
-    margin: 0;
-    margin-bottom: 0.75rem;
+    margin: 0 0 0 0.75rem;
   }
 
   &__message {
-    font-size: 0.95rem;
+    font-weight: 500;
     margin-bottom: 1.5rem;
   }
 

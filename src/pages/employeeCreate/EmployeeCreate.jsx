@@ -1,18 +1,40 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addEmployee } from '../../store/employeesSlice'
-
 import Header from '../../components/header/Header'
 import TextField from '../../components/form/TextField'
 import DateField from '../../components/form/DateField'
 import SelectField from '../../components/form/SelectField'
 import UiModal from '../../components/ui/UiModal'
 import { CircleAlert, CircleCheckBig } from 'lucide-react'
-
 import { useEmployeeForm } from '../../hooks/useEmployeeForm'
-import { NAME_REGEX } from '../../data/formRegex'
 import { DEPARTMENTS, US_STATES } from '../../data/formSelectData'
+import { NAME_REGEX } from '../../data/formRegex'
+import {
+  formatName,
+  formatAddress,
+  formatZipcode,
+} from '../../utils/formFormatters'
 
+/**
+ * This component renders the form used to create a new employee and handles:
+ * - Form state and validation via the `useEmployeeForm` custom hook
+ * - Input formatting for names, addresses and ZIP codes
+ * - Dispatching the created employee to the Redux store
+ * - Displaying success or error messages through a modal (UiModal)
+ *
+ * Local State:
+ * - `modalConfig` manages the feedback modal (open state, title, message, variant)
+ *
+ * External Dependencies:
+ * - `useEmployeeForm` for managing all form fields and validation
+ * - Input formatters: `formatName`, `formatAddress`, `formatZipcode`
+ * - Validation regex: `NAME_REGEX`
+ * - UI components: TextField, DateField, SelectField, Header, UiModal
+ *
+ * @function EmployeeCreate
+ * @returns {JSX.Element} The employee creation page with its form and modal system.
+ */
 const EmployeeCreate = () => {
   const dispatch = useDispatch()
 
@@ -79,7 +101,15 @@ const EmployeeCreate = () => {
     setModalConfig({
       isOpen: true,
       title: <CircleCheckBig size={50} />,
-      message: 'The new employee has been added to the company directory.',
+      message: (
+        <>
+          <strong>
+            {firstName} {lastName}
+          </strong>
+          <br />
+          has been added to the company directory.
+        </>
+      ),
       variant: 'success',
     })
 
@@ -107,9 +137,9 @@ const EmployeeCreate = () => {
               id="firstname"
               label="First Name"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(formatName(e.target.value))}
               placeholder="John"
-              pattern="^[A-Za-zÀ-ÿ'\s-]+$"
+              pattern={NAME_REGEX.source}
               title="Only letters, apostrophes, spaces and hyphens are allowed"
               error={submitted && !NAME_REGEX.test(firstName)}
             />
@@ -117,9 +147,9 @@ const EmployeeCreate = () => {
               id="lastname"
               label="Last Name"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastName(formatName(e.target.value))}
               placeholder="Doe"
-              pattern="^[A-Za-zÀ-ÿ'\s-]+$"
+              pattern={NAME_REGEX.source}
               title="Only letters, apostrophes, spaces and hyphens are allowed"
               error={submitted && !NAME_REGEX.test(lastName)}
             />
@@ -162,7 +192,7 @@ const EmployeeCreate = () => {
               id="street"
               label="Street"
               value={street}
-              onChange={(e) => setStreet(e.target.value)}
+              onChange={(e) => setStreet(formatAddress(e.target.value))}
               placeholder="123 Main St"
               title={'Enter your address'}
               error={submitted && !street}
@@ -173,8 +203,9 @@ const EmployeeCreate = () => {
               id="city"
               label="City"
               value={city}
-              onChange={(e) => setCity(e.target.value)}
+              onChange={(e) => setCity(formatName(e.target.value))}
               placeholder="New York"
+              pattern={NAME_REGEX.source}
               title={'Enter your city'}
               error={submitted && !city}
             />
@@ -191,7 +222,7 @@ const EmployeeCreate = () => {
               id="zipcode"
               label="ZIP Code"
               value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
+              onChange={(e) => setZipCode(formatZipcode(e.target.value))}
               placeholder="10001"
               pattern="^[0-9]{5}$"
               title={'ZIP code must contain exactly 5 digits'}
