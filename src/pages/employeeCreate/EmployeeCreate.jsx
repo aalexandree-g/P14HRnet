@@ -123,7 +123,7 @@ const EmployeeCreate = () => {
   return (
     <>
       <Header />
-      <div className="form__container">
+      <div className="container form__container">
         <div className="form__title">
           <h1>Create Employee</h1>
           <span className="form__title__subtext">

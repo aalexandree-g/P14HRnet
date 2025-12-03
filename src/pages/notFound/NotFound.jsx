@@ -4,7 +4,9 @@ const NotFound = () => {
   return (
     <>
       <Header />
-      <h1>Erreur</h1>
+      <div className="container">
+        <h1>Erreur</h1>
+      </div>
     </>
   )
 }

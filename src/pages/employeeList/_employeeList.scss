@@ -1,0 +1,32 @@
+@use '../../styles/variables' as *;
+
+.list {
+  &__title {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+    h1 {
+      margin: 0;
+    }
+
+    &__subtext {
+      color: rgb(100, 100, 100);
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1240px;
+    padding: 0.5rem 2rem;
+    margin: 0 auto;
+  }
+
+  &__table {
+    width: 100%;
+    max-width: 1240px;
+  }
+}

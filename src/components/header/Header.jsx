@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png'
 const Header = () => {
   return (
     <nav className="main-nav">
-      <div className="main-nav__container container">
+      <div className="main-nav__container">
         <NavLink to="/" className="main-nav__logo">
           <img className="main-nav__image" src={logo} alt="HRnet logo" />
           <div className="main-nav__text">
