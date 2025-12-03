@@ -1,7 +1,6 @@
 @use '../../styles/variables' as *;
 
-.form,
-.pika-single {
+.form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,37 +122,6 @@
       filter: brightness(1.1);
     }
   }
-}
-
-.pika {
-  &-single {
-    transform: translateX(0.5rem);
-  }
-
-  &-day {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-
-    &:hover {
-      color: black;
-      background-color: $tertiary-color;
-      border-radius: 1rem;
-    }
-  }
-
-  &-weekdays {
-    text-decoration: none !important;
-    border-bottom: none !important;
-    cursor: default !important;
-  }
-}
-
-.is-selected .pika-day {
-  background-color: $clear-color !important;
-  color: white !important;
-  border-radius: 1rem;
 }
 
 select.form__input {

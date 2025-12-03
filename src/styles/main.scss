@@ -5,7 +5,8 @@
 @use '../components/header/header';
 
 // ui
-@use '../components/ui/uiModal';
+@use '../components/ui/modal/uiModal';
+@use '../components/ui/datepicker/datepicker';
 
 // pages
 @use '../pages/employeeCreate/employeeCreate';
