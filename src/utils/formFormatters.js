@@ -66,3 +66,17 @@ export const formatZipcode = (value) => {
     .replace(/\D/g, '') // Remove non-digit characters
     .slice(0, 5) // Limit to 5 digits
 }
+
+/**
+ * Converts a Date or string into a standardized "YYYY-MM-DD" format.
+ *
+ * @param {Date|string|null} value
+ * @returns {string|null}
+ */
+export const toDateString = (value) => {
+  if (!value) return null
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10) // "YYYY-MM-DD"
+  }
+  return value // already a string
+}

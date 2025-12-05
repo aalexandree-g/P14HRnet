@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { toDateString } from '../utils/formFormatters'
 
 const initialState = {
   list: [
     {
       firstName: 'Michael',
       lastName: 'Anderson',
-      birthDate: new Date('1984-06-12'),
-      startDate: new Date('2015-03-01'),
+      birthDate: '1984-06-12',
+      startDate: '2015-03-01',
       department: 'Engineering',
       street: '742 Evergreen Terrace',
       city: 'Springfield',
@@ -16,8 +17,8 @@ const initialState = {
     {
       firstName: 'Emma',
       lastName: 'Roberts',
-      birthDate: new Date('1991-11-23'),
-      startDate: new Date('2021-07-12'),
+      birthDate: '1991-11-23',
+      startDate: '2021-07-12',
       department: 'Marketing',
       street: '15 Sunset Boulevard',
       city: 'Los Angeles',
@@ -27,8 +28,8 @@ const initialState = {
     {
       firstName: 'Lucas',
       lastName: 'Martinez',
-      birthDate: new Date('1988-02-04'),
-      startDate: new Date('2019-01-15'),
+      birthDate: '1988-02-04',
+      startDate: '2019-01-15',
       department: 'Human Resources',
       street: '410 Cherry Lane',
       city: 'Austin',
@@ -38,8 +39,8 @@ const initialState = {
     {
       firstName: 'Sophia',
       lastName: 'Nguyen',
-      birthDate: new Date('1995-04-19'),
-      startDate: new Date('2022-09-05'),
+      birthDate: '1995-04-19',
+      startDate: '2022-09-05',
       department: 'Legal',
       street: '88 Harbor Street',
       city: 'Seattle',
@@ -49,8 +50,8 @@ const initialState = {
     {
       firstName: 'Benjamin',
       lastName: 'Clark',
-      birthDate: new Date('1979-01-30'),
-      startDate: new Date('2010-11-20'),
+      birthDate: '1979-01-30',
+      startDate: '2010-11-20',
       department: 'Sales',
       street: '320 Maple Avenue',
       city: 'Boston',
@@ -60,8 +61,8 @@ const initialState = {
     {
       firstName: 'Daniel',
       lastName: 'Turner',
-      birthDate: new Date('1987-05-08'),
-      startDate: new Date('2018-02-10'),
+      birthDate: '1987-05-08',
+      startDate: '2018-02-10',
       department: 'Engineering',
       street: '12 Brookside Drive',
       city: 'Denver',
@@ -71,8 +72,8 @@ const initialState = {
     {
       firstName: 'Olivia',
       lastName: 'King',
-      birthDate: new Date('1993-08-27'),
-      startDate: new Date('2020-11-03'),
+      birthDate: '1993-08-27',
+      startDate: '2020-11-03',
       department: 'Sales',
       street: '901 Pine Street',
       city: 'Portland',
@@ -82,8 +83,8 @@ const initialState = {
     {
       firstName: 'Henry',
       lastName: 'Mitchell',
-      birthDate: new Date('1982-03-16'),
-      startDate: new Date('2017-04-14'),
+      birthDate: '1982-03-16',
+      startDate: '2017-04-14',
       department: 'Engineering',
       street: '77 Oakwood Road',
       city: 'Columbus',
@@ -93,8 +94,8 @@ const initialState = {
     {
       firstName: 'Ava',
       lastName: 'Sullivan',
-      birthDate: new Date('1990-10-11'),
-      startDate: new Date('2019-08-21'),
+      birthDate: '1990-10-11',
+      startDate: '2019-08-21',
       department: 'Human Resources',
       street: '55 Greenway Avenue',
       city: 'Miami',
@@ -104,8 +105,8 @@ const initialState = {
     {
       firstName: 'Jack',
       lastName: 'Reynolds',
-      birthDate: new Date('1994-02-02'),
-      startDate: new Date('2022-01-09'),
+      birthDate: '1994-02-02',
+      startDate: '2022-01-09',
       department: 'Legal',
       street: '302 Willow Court',
       city: 'Phoenix',
@@ -115,8 +116,8 @@ const initialState = {
     {
       firstName: 'Grace',
       lastName: 'Carter',
-      birthDate: new Date('1989-09-25'),
-      startDate: new Date('2016-06-18'),
+      birthDate: '1989-09-25',
+      startDate: '2016-06-18',
       department: 'Marketing',
       street: '64 Birchwood Lane',
       city: 'Nashville',
@@ -126,8 +127,8 @@ const initialState = {
     {
       firstName: 'Ethan',
       lastName: 'Brooks',
-      birthDate: new Date('1980-07-03'),
-      startDate: new Date('2013-03-27'),
+      birthDate: '1980-07-03',
+      startDate: '2013-03-27',
       department: 'Legal',
       street: '210 Riverbend Drive',
       city: 'Chicago',
@@ -137,8 +138,8 @@ const initialState = {
     {
       firstName: 'Chloe',
       lastName: 'Henderson',
-      birthDate: new Date('1996-12-06'),
-      startDate: new Date('2021-05-30'),
+      birthDate: '1996-12-06',
+      startDate: '2021-05-30',
       department: 'Sales',
       street: '98 Meadow Park',
       city: 'San Diego',
@@ -148,26 +149,18 @@ const initialState = {
   ],
 }
 
-/**
- * Redux slice responsible for managing the list of employees.
- *
- * State shape:
- * {
- *   list: Array<Object> // Array of employee objects created from the form
- * }
- */
 const employeesSlice = createSlice({
   name: 'employees',
   initialState,
   reducers: {
-    /**
-     * Adds a new employee to the list.
-     *
-     * @param {Object} state - Current employees state.
-     * @param {{ payload: Object }} action - Redux action containing the new employee.
-     */
     addEmployee: (state, action) => {
-      state.list.push(action.payload)
+      const employee = {
+        ...action.payload,
+        birthDate: toDateString(action.payload.birthDate),
+        startDate: toDateString(action.payload.startDate),
+      }
+
+      state.list.push(employee)
     },
   },
 })
