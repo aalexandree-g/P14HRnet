@@ -11,6 +11,7 @@
 // pages
 @use '../pages/employeeCreate/employeeCreate';
 @use '../pages/employeeList/employeeList';
+@use '../pages/notFound/notFound';
 
 html {
   font-family: $font-family;

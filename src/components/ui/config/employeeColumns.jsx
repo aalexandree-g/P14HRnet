@@ -20,6 +20,7 @@ export const employeeColumns = [
     name: 'Department',
     selector: (row) => row.department,
     sortable: true,
+    width: '13%',
   },
   {
     name: 'Date of Birth',

@@ -85,11 +85,13 @@ const EmployeeCreate = () => {
       return
     }
 
+    const toIsoOrNull = (date) => (date ? date.toISOString() : null)
+
     const newEmployee = {
       firstName,
       lastName,
-      birthDate,
-      startDate,
+      birthDate: toIsoOrNull(birthDate),
+      startDate: toIsoOrNull(startDate),
       department,
       street,
       city,

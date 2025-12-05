@@ -28,7 +28,7 @@ const UiModal = ({ isOpen, title, message, variant = 'success', onClose }) => {
       onRequestClose={onClose}
       overlayClassName="modal-overlay"
       className={`modal modal--${variant}`}
-      contentLabel={title}
+      contentLabel={'Employee creation feedback'}
     >
       <h2 className="modal__title">{title}</h2>
       {message && <p className="modal__message">{message}</p>}
