@@ -9,6 +9,10 @@
   border-radius: 1rem;
   background-color: $light-color;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05) !important;
+
+  @media (max-width: 599px) {
+    border-radius: 0;
+  }
 }
 
 .form {
@@ -19,12 +23,22 @@
     padding: 2rem;
   }
 
+  &__body {
+    @media (max-width: 768px) {
+      margin: 0rem 2rem;
+    }
+    @media (max-width: 599px) {
+      margin: 0;
+    }
+  }
+
   &__container {
     width: 650px;
 
     @media (max-width: 768px) {
       width: 100%;
-      padding: 0rem 2rem;
+      max-width: 650px;
+      margin: 0rem 2rem;
     }
   }
 
@@ -40,12 +54,20 @@
     &__subtext {
       color: rgb(100, 100, 100);
     }
+
+    @media (max-width: 599px) {
+      align-items: center;
+    }
   }
 
   &__line {
     display: flex;
     gap: 1rem;
     width: 100%;
+
+    @media (max-width: 599px) {
+      flex-direction: column;
+    }
   }
 
   &__field {

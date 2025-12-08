@@ -32,10 +32,6 @@
     flex-direction: column;
     align-items: flex-start;
     color: $text-color;
-
-    @media (max-width: 599px) {
-      display: none;
-    }
   }
 
   &__title {
@@ -47,6 +43,10 @@
   &__subtitle {
     text-decoration: none;
     color: $grey-color;
+
+    @media (max-width: 599px) {
+      display: none;
+    }
   }
 
   &__links {

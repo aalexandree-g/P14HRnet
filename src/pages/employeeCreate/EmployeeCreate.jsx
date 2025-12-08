@@ -96,123 +96,125 @@ const EmployeeCreate = () => {
   return (
     <>
       <Header />
-      <div className="container form__container">
-        <div className="form__title">
-          <h1>Create Employee</h1>
-          <span className="form__title__subtext">
-            Add a new employee to the company directory
-          </span>
+      <div className="form__body">
+        <div className="container form__container">
+          <div className="form__title">
+            <h1>Create Employee</h1>
+            <span className="form__title__subtext">
+              Add a new employee to the company directory
+            </span>
+          </div>
+          <form className="form" onSubmit={handleSubmit}>
+            {/* NAMES */}
+            <div className="form__line">
+              <TextField
+                id="firstname"
+                label="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(formatName(e.target.value))}
+                placeholder="John"
+                title="Only letters, apostrophes, spaces and hyphens are allowed"
+                error={submitted && !NAME_REGEX.test(firstName)}
+              />
+              <TextField
+                id="lastname"
+                label="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(formatName(e.target.value))}
+                placeholder="Doe"
+                title="Only letters, apostrophes, spaces and hyphens are allowed"
+                error={submitted && !NAME_REGEX.test(lastName)}
+              />
+            </div>
+            {/* BIRTHDATE */}
+            <div className="form__line">
+              <DateField
+                id="birthdate"
+                label="Date of Birth"
+                value={birthDate}
+                onChange={setBirthDate}
+                error={submitted && !birthDate}
+              />
+            </div>
+            {/* START DATE */}
+            <div className="form__line">
+              <DateField
+                id="startdate"
+                label="Start Date"
+                value={startDate}
+                onChange={setStartDate}
+                error={submitted && !startDate}
+              />
+            </div>
+            {/* DEPARTMENT */}
+            <div className="form__line">
+              <SelectField
+                id="department"
+                label="Department"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                options={DEPARTMENTS}
+                placeholder="Select a department"
+                error={submitted && !department}
+              />
+            </div>
+            {/* ADDRESS */}
+            <div className="form__line">
+              <TextField
+                id="street"
+                label="Street"
+                value={street}
+                onChange={(e) => setStreet(formatAddress(e.target.value))}
+                placeholder="123 Main St"
+                title={'Enter your address'}
+                error={submitted && !street}
+              />
+            </div>
+            <div className="form__line">
+              <TextField
+                id="city"
+                label="City"
+                value={city}
+                onChange={(e) => setCity(formatName(e.target.value))}
+                placeholder="New York"
+                title={'Enter your city'}
+                error={submitted && !NAME_REGEX.test(city)}
+              />
+              <SelectField
+                id="state"
+                label="State"
+                value={stateValue}
+                onChange={(e) => setStateValue(e.target.value)}
+                options={US_STATES}
+                placeholder="Select a state"
+                error={submitted && !stateValue}
+              />
+              <TextField
+                id="zipcode"
+                label="ZIP Code"
+                value={zipCode}
+                onChange={(e) => setZipCode(formatZipcode(e.target.value))}
+                placeholder="10001"
+                pattern="^[0-9]{5}$"
+                title={'ZIP code must contain exactly 5 digits'}
+                error={submitted && !ZIPCODE_REGEX.test(zipCode)}
+              />
+            </div>
+            {/* SUBMIT BUTTON */}
+            <button type="submit" className="form__button">
+              Create Employee
+            </button>
+          </form>
         </div>
-        <form className="form" onSubmit={handleSubmit}>
-          {/* NAMES */}
-          <div className="form__line">
-            <TextField
-              id="firstname"
-              label="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(formatName(e.target.value))}
-              placeholder="John"
-              title="Only letters, apostrophes, spaces and hyphens are allowed"
-              error={submitted && !NAME_REGEX.test(firstName)}
-            />
-            <TextField
-              id="lastname"
-              label="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(formatName(e.target.value))}
-              placeholder="Doe"
-              title="Only letters, apostrophes, spaces and hyphens are allowed"
-              error={submitted && !NAME_REGEX.test(lastName)}
-            />
-          </div>
-          {/* BIRTHDATE */}
-          <div className="form__line">
-            <DateField
-              id="birthdate"
-              label="Date of Birth"
-              value={birthDate}
-              onChange={setBirthDate}
-              error={submitted && !birthDate}
-            />
-          </div>
-          {/* START DATE */}
-          <div className="form__line">
-            <DateField
-              id="startdate"
-              label="Start Date"
-              value={startDate}
-              onChange={setStartDate}
-              error={submitted && !startDate}
-            />
-          </div>
-          {/* DEPARTMENT */}
-          <div className="form__line">
-            <SelectField
-              id="department"
-              label="Department"
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-              options={DEPARTMENTS}
-              placeholder="Select a department"
-              error={submitted && !department}
-            />
-          </div>
-          {/* ADDRESS */}
-          <div className="form__line">
-            <TextField
-              id="street"
-              label="Street"
-              value={street}
-              onChange={(e) => setStreet(formatAddress(e.target.value))}
-              placeholder="123 Main St"
-              title={'Enter your address'}
-              error={submitted && !street}
-            />
-          </div>
-          <div className="form__line">
-            <TextField
-              id="city"
-              label="City"
-              value={city}
-              onChange={(e) => setCity(formatName(e.target.value))}
-              placeholder="New York"
-              title={'Enter your city'}
-              error={submitted && !NAME_REGEX.test(city)}
-            />
-            <SelectField
-              id="state"
-              label="State"
-              value={stateValue}
-              onChange={(e) => setStateValue(e.target.value)}
-              options={US_STATES}
-              placeholder="Select a state"
-              error={submitted && !stateValue}
-            />
-            <TextField
-              id="zipcode"
-              label="ZIP Code"
-              value={zipCode}
-              onChange={(e) => setZipCode(formatZipcode(e.target.value))}
-              placeholder="10001"
-              pattern="^[0-9]{5}$"
-              title={'ZIP code must contain exactly 5 digits'}
-              error={submitted && !ZIPCODE_REGEX.test(zipCode)}
-            />
-          </div>
-          {/* SUBMIT BUTTON */}
-          <button type="submit" className="form__button">
-            Create Employee
-          </button>
-        </form>
+        {/* MODAL */}
+        <UiModal
+          isOpen={modalConfig.isOpen}
+          title={modalConfig.title}
+          message={modalConfig.message}
+          variant={modalConfig.variant}
+          onClose={closeModal}
+        />
       </div>
-      {/* MODAL */}
-      <UiModal
-        isOpen={modalConfig.isOpen}
-        title={modalConfig.title}
-        message={modalConfig.message}
-        variant={modalConfig.variant}
-        onClose={closeModal}
-      />
     </>
   )
 }
