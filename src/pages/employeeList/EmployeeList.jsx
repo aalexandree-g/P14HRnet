@@ -1,9 +1,11 @@
+import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import DataTable from 'react-data-table-component'
 import { employeeTableStyles } from '../../components/ui/config/employeeTableStyles'
 import { employeeColumns } from '../../components/ui/config/employeeColumns'
 
 import Header from '../../components/header/Header'
+import EmployeeSearchBar from '../../components/ui/search/EmployeeSearchBar'
 
 /**
  * EmployeeList component.
@@ -15,21 +17,61 @@ import Header from '../../components/header/Header'
  */
 const EmployeeList = () => {
   const employees = useSelector((state) => state.employees.list || [])
+  const [searchText, setSearchText] = useState('')
+
+  const filteredEmployees = useMemo(() => {
+    const trimmed = searchText.trim()
+    if (!trimmed) return employees
+
+    const lower = trimmed.toLowerCase()
+
+    const normalize = (value) => {
+      if (value === null || value === undefined) return ''
+      return value.toString().toLowerCase()
+    }
+
+    return employees.filter((employee) => {
+      const searchable = [
+        employee.firstName,
+        employee.lastName,
+        employee.birthDate,
+        employee.startDate,
+        employee.department,
+        employee.street,
+        employee.city,
+        employee.state,
+        employee.zipCode,
+      ]
+        .map(normalize)
+        .join(' ')
+
+      return searchable.includes(lower)
+    })
+  }, [employees, searchText])
 
   return (
     <>
       <Header />
       <div className="container list__container">
-        <div className="list__title">
-          <h1>Current Employees</h1>
-          <span className="list__title__subtext">
-            Add a new employee to the company directory
-          </span>
+        <div className="list__header">
+          <div className="list__title">
+            <h1>Current Employees</h1>
+            <span className="list__title__subtext">
+              Add a new employee to the company directory
+            </span>
+          </div>
+          <div className="list__actions">
+            <EmployeeSearchBar
+              value={searchText}
+              onChange={setSearchText}
+              onClear={() => setSearchText('')}
+            />
+          </div>
         </div>
         <div className="list__table">
           <DataTable
             columns={employeeColumns}
-            data={employees}
+            data={filteredEmployees}
             pagination
             highlightOnHover
             responsive

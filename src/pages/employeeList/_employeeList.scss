@@ -1,6 +1,13 @@
 @use '../../styles/variables' as *;
 
 .list {
+  &__header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+  }
+
   &__title {
     display: flex;
     align-items: flex-start;
@@ -27,6 +34,5 @@
 
   &__table {
     width: 100%;
-    max-width: 1240px;
   }
 }

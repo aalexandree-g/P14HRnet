@@ -1,23 +1,19 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addEmployee } from '../../store/employeesSlice'
-
 import Header from '../../components/header/Header'
 import TextField from '../../components/form/TextField'
 import DateField from '../../components/form/DateField'
 import SelectField from '../../components/form/SelectField'
-import UiModal from '../../components/ui/modal/UiModal'
-
+import UiModal from '../../components/ui/UiModal'
+import { CircleAlert, CircleCheckBig } from 'lucide-react'
 import { useEmployeeForm } from '../../hooks/useEmployeeForm'
-import { useEmployeeModal } from '../../hooks/useEmployeeModal'
-
 import { DEPARTMENTS, US_STATES } from '../../data/formSelectData'
-import { NAME_REGEX, ZIPCODE_REGEX } from '../../data/formRegex'
-
+import { NAME_REGEX } from '../../data/formRegex'
 import {
   formatName,
   formatAddress,
   formatZipcode,
-  toDateString,
 } from '../../utils/formFormatters'
 
 /**
@@ -41,7 +37,14 @@ import {
  */
 const EmployeeCreate = () => {
   const dispatch = useDispatch()
-  const { modalConfig, showError, showSuccess, closeModal } = useEmployeeModal()
+
+  const [modalConfig, setModalConfig] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    variant: 'success',
+  })
+
   const {
     firstName,
     setFirstName,
@@ -72,15 +75,21 @@ const EmployeeCreate = () => {
     setSubmitted(true)
 
     if (!isFormValid()) {
-      showError()
+      setModalConfig({
+        isOpen: true,
+        title: <CircleAlert size={50} />,
+        message: 'Please fill in all fields correctly.',
+        variant: 'error',
+      })
+
       return
     }
 
     const newEmployee = {
       firstName,
       lastName,
-      birthDate: toDateString(birthDate),
-      startDate: toDateString(startDate),
+      birthDate,
+      startDate,
       department,
       street,
       city,
@@ -89,14 +98,32 @@ const EmployeeCreate = () => {
     }
 
     dispatch(addEmployee(newEmployee))
-    showSuccess(firstName, lastName)
+    setModalConfig({
+      isOpen: true,
+      title: <CircleCheckBig size={50} />,
+      message: (
+        <>
+          <strong>
+            {firstName} {lastName}
+          </strong>
+          <br />
+          has been added to the company directory.
+        </>
+      ),
+      variant: 'success',
+    })
+
     resetForm()
+  }
+
+  const closeModal = () => {
+    setModalConfig((prev) => ({ ...prev, isOpen: false }))
   }
 
   return (
     <>
       <Header />
-      <div className="container form__container">
+      <div className="form__container">
         <div className="form__title">
           <h1>Create Employee</h1>
           <span className="form__title__subtext">
@@ -112,6 +139,7 @@ const EmployeeCreate = () => {
               value={firstName}
               onChange={(e) => setFirstName(formatName(e.target.value))}
               placeholder="John"
+              pattern={NAME_REGEX.source}
               title="Only letters, apostrophes, spaces and hyphens are allowed"
               error={submitted && !NAME_REGEX.test(firstName)}
             />
@@ -121,6 +149,7 @@ const EmployeeCreate = () => {
               value={lastName}
               onChange={(e) => setLastName(formatName(e.target.value))}
               placeholder="Doe"
+              pattern={NAME_REGEX.source}
               title="Only letters, apostrophes, spaces and hyphens are allowed"
               error={submitted && !NAME_REGEX.test(lastName)}
             />
@@ -176,8 +205,9 @@ const EmployeeCreate = () => {
               value={city}
               onChange={(e) => setCity(formatName(e.target.value))}
               placeholder="New York"
+              pattern={NAME_REGEX.source}
               title={'Enter your city'}
-              error={submitted && !NAME_REGEX.test(city)}
+              error={submitted && !city}
             />
             <SelectField
               id="state"
@@ -196,7 +226,7 @@ const EmployeeCreate = () => {
               placeholder="10001"
               pattern="^[0-9]{5}$"
               title={'ZIP code must contain exactly 5 digits'}
-              error={submitted && !ZIPCODE_REGEX.test(zipCode)}
+              error={submitted && !zipCode}
             />
           </div>
           {/* SUBMIT BUTTON */}
