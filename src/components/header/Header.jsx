@@ -22,7 +22,7 @@ const Header = () => {
             end
           >
             <Users strokeWidth={2.5} className="main-nav__icon" />
-            Employee List
+            List
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -31,7 +31,7 @@ const Header = () => {
             to="/employees/create"
           >
             <UserPlus strokeWidth={2.5} className="main-nav__icon" />
-            Create Employee
+            Create
           </NavLink>
         </div>
       </div>

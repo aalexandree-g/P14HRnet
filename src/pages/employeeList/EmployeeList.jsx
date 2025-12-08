@@ -57,7 +57,7 @@ const EmployeeList = () => {
           <div className="list__title">
             <h1>Current Employees</h1>
             <span className="list__title__subtext">
-              Add a new employee to the company directory
+              View the complete list of current employees
             </span>
           </div>
           <div className="list__actions">

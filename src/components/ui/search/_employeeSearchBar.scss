@@ -5,6 +5,11 @@
   display: flex;
   justify-content: flex-end;
   transform: translateY(1rem);
+
+  @media (max-width: 599px) {
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .employee-search {
@@ -17,7 +22,7 @@
   }
 
   &__input {
-    width: 20rem;
+    width: 17rem;
     padding: 0.7rem 0rem 0.7rem 1rem;
     border-radius: 1rem;
     border: 1px solid #e8e8e8;

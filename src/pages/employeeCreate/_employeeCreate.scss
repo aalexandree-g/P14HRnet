@@ -15,8 +15,17 @@
   gap: 1.5rem;
   padding: 3rem;
 
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+
   &__container {
     width: 650px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0rem 2rem;
+    }
   }
 
   &__title {
