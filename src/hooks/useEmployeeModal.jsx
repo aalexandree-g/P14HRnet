@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { CircleAlert, CircleCheckBig } from 'lucide-react'
+import { useHrnetModal } from '@aalexandree-g/hrnet-modal'
 
 /**
  * Custom React hook managing the feedback modal displayed during
  * the employee creation process.
  *
- * It handles the modal's open/close state, visual variant (success or error),
- * and dynamically built messages (especially after successful employee creation).
+ * It combines:
+ * - the generic modal state (open/close) from the external plugin hook `useHrnetModal`
+ * - and the HRnet-specific content (icons, messages, variants) defined here.
  *
  * @returns {Object} An object containing:
  *
@@ -15,7 +17,7 @@ import { CircleAlert, CircleCheckBig } from 'lucide-react'
  * // ────────────────────────────────
  * @property {Object} modalConfig - Current configuration of the modal.
  * @property {boolean} modalConfig.isOpen - Indicates whether the modal is visible.
- * @property {JSX.Element|string} modalConfig.title - Icon displayed in the modal header.
+ * @property {JSX.Element|string} modalConfig.title - Icon or title displayed in the modal header.
  * @property {JSX.Element|string} modalConfig.message - Message displayed inside the modal.
  * @property {'success'|'error'} modalConfig.variant - Determines the modal's visual style.
  *
@@ -31,8 +33,11 @@ import { CircleAlert, CircleCheckBig } from 'lucide-react'
  * @property {Function} closeModal - Closes the currently open modal.
  */
 export const useEmployeeModal = () => {
+  // Generic modal state from the external plugin
+  const { isOpen, open, close } = useHrnetModal()
+
+  // HRnet-specific config (content + variant)
   const [modalConfig, setModalConfig] = useState({
-    isOpen: false,
     title: '',
     message: '',
     variant: 'success',
@@ -40,16 +45,15 @@ export const useEmployeeModal = () => {
 
   const showError = () => {
     setModalConfig({
-      isOpen: true,
       title: <CircleAlert size={50} />,
       message: 'Please fill in all fields correctly.',
       variant: 'error',
     })
+    open()
   }
 
   const showSuccess = (firstName, lastName) => {
     setModalConfig({
-      isOpen: true,
       title: <CircleCheckBig size={50} />,
       message: (
         <>
@@ -62,14 +66,18 @@ export const useEmployeeModal = () => {
       ),
       variant: 'success',
     })
+    open()
   }
 
   const closeModal = () => {
-    setModalConfig((prev) => ({ ...prev, isOpen: false }))
+    close()
   }
 
   return {
-    modalConfig,
+    modalConfig: {
+      ...modalConfig,
+      isOpen,
+    },
     showError,
     showSuccess,
     closeModal,

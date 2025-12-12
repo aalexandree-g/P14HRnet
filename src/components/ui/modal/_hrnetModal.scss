@@ -1,5 +1,15 @@
 @use '../../../styles/variables' as *;
 
+.modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
 .modal {
   background: #ffffff;
   border-radius: 1rem;
@@ -7,19 +17,10 @@
   width: 30rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
   text-align: center;
+  border-top: none;
 
   @media (max-width: 599px) {
     width: 22rem;
-  }
-
-  &-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
   }
 
   &__title {

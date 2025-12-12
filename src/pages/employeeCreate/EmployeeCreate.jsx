@@ -5,7 +5,7 @@ import Header from '../../components/header/Header'
 import TextField from '../../components/form/TextField'
 import DateField from '../../components/form/DateField'
 import SelectField from '../../components/form/SelectField'
-import UiModal from '../../components/ui/modal/UiModal'
+import { HrnetModal } from '@aalexandree-g/hrnet-modal'
 
 import { useEmployeeForm } from '../../hooks/useEmployeeForm'
 import { useEmployeeModal } from '../../hooks/useEmployeeModal'
@@ -20,25 +20,6 @@ import {
   toDateString,
 } from '../../utils/formFormatters'
 
-/**
- * This component renders the form used to create a new employee and handles:
- * - Form state and validation via the `useEmployeeForm` custom hook
- * - Input formatting for names, addresses and ZIP codes
- * - Dispatching the created employee to the Redux store
- * - Displaying success or error messages through a modal (UiModal)
- *
- * Local State:
- * - `modalConfig` manages the feedback modal (open state, title, message, variant)
- *
- * External Dependencies:
- * - `useEmployeeForm` for managing all form fields and validation
- * - Input formatters: `formatName`, `formatAddress`, `formatZipcode`
- * - Validation regex: `NAME_REGEX`
- * - UI components: TextField, DateField, SelectField, Header, UiModal
- *
- * @function EmployeeCreate
- * @returns {JSX.Element} The employee creation page with its form and modal system.
- */
 const EmployeeCreate = () => {
   const dispatch = useDispatch()
   const { modalConfig, showError, showSuccess, closeModal } = useEmployeeModal()
@@ -207,7 +188,7 @@ const EmployeeCreate = () => {
           </form>
         </div>
         {/* MODAL */}
-        <UiModal
+        <HrnetModal
           isOpen={modalConfig.isOpen}
           title={modalConfig.title}
           message={modalConfig.message}

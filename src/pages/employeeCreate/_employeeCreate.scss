@@ -108,14 +108,6 @@
     &::-ms-input-placeholder {
       color: $grey-color;
     }
-
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 30px $background-color inset !important;
-      -webkit-text-fill-color: inherit !important;
-    }
   }
 
   &__date {
@@ -151,6 +143,21 @@
 
     &:hover {
       filter: brightness(1.1);
+    }
+  }
+}
+
+.form__date {
+  .react-datepicker {
+    &-wrapper {
+      width: 100%;
+    }
+
+    &__input-container {
+      width: 100%;
+      input {
+        width: 100%;
+      }
     }
   }
 }

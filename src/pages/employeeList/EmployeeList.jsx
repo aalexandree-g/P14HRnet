@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import DataTable from 'react-data-table-component'
-import { employeeTableStyles } from '../../components/ui/config/employeeTableStyles'
-import { employeeColumns } from '../../components/ui/config/employeeColumns'
+import { employeeTableStyles } from '../../components/ui/table/employeeTableStyles'
+import { employeeColumns } from '../../components/ui/table/employeeColumns'
 
 import Header from '../../components/header/Header'
 import EmployeeSearchBar from '../../components/ui/search/EmployeeSearchBar'

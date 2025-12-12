@@ -5,9 +5,10 @@
 @use '../components/header/header';
 
 // ui
-@use '../components/ui/modal/uiModal';
+@use '../components/ui/modal/hrnetModal';
 @use '../components/ui/datepicker/datepicker';
 @use '../components/ui/search/employeeSearchBar';
+@use '../components/ui/table/employeeTable';
 
 // pages
 @use '../pages/employeeCreate/employeeCreate';
@@ -43,70 +44,4 @@ abbr {
   text-decoration: none !important;
   border-bottom: none !important;
   cursor: default !important;
-}
-
-@media (max-width: 1280px) {
-  /* Hide column 9 (header) */
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(9),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(9) {
-    display: none !important;
-  }
-  /* Hide column 9 (table) */
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(9) {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1024px) {
-  /* Hide columns 6, 7 & 9 (headers) */
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(6),
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(7),
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(9),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(6),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(7),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(9) {
-    display: none !important;
-  }
-  /* Hide columns 6, 7 & 9 (table) */
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(6),
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(7),
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(9) {
-    display: none !important;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Hide columns 6 to 9 (headers) */
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(n + 6),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(n + 6) {
-    display: none !important;
-  }
-  /* Hide columns 6 to 9 (table) */
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(n + 6) {
-    display: none !important;
-  }
-}
-
-@media (max-width: 680px) {
-  /* Hide columns 5 to 9 (headers) */
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(n + 5),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(n + 5) {
-    display: none !important;
-  }
-  /* Hide columns 5 to 9 (table) */
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(n + 5) {
-    display: none !important;
-  }
-}
-
-@media (max-width: 599px) {
-  /* Hide columns 4 to 9 (headers) */
-  .rdt_TableHeadRow .rdt_TableCol:nth-child(n + 4),
-  .rdt_TableHeadRow .rdt_TableCol_Sortable:nth-child(n + 4) {
-    display: none !important;
-  }
-  /* Hide columns 4 to 9 (table) */
-  .rdt_TableBody .rdt_TableRow .rdt_TableCell:nth-child(n + 4) {
-    display: none !important;
-  }
 }

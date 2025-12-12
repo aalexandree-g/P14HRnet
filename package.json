@@ -1,8 +1,11 @@
 {
   "name": "p14hrnet",
   "private": true,
-  "version": "0.0.0",
+  "description": "HRnet project",
+  "version": "1.0.0",
+  "author": "Alexandre",
   "type": "module",
+  "main": "./main.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,13 +13,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aalexandree-g/hrnet-plugin-datepicker": "^1.0.2",
+    "@aalexandree-g/hrnet-modal": "^1.0.7",
     "@reduxjs/toolkit": "^2.10.1",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.553.0",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-data-table-component": "^7.7.0",
+    "react-datepicker": "^9.0.0",
     "react-dom": "^18.3.1",
-    "react-modal": "^3.16.3",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.5",
     "sass": "^1.94.0"
