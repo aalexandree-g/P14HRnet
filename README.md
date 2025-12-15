@@ -1,8 +1,20 @@
-# HRnet ![Status](https://img.shields.io/badge/Project-Completed-brightgreen) ![Responsive](https://img.shields.io/badge/Responsive-Yes-success)
+# HRnet
+
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
+![Responsive](https://img.shields.io/badge/Responsive-Yes-success)
+![npm](https://img.shields.io/npm/v/@aalexandree-g/hrnet-modal)
+
+> <br />
+> The npm badge refers to the reusable modal plugin used by this project.
+> <br /><br />
+
+<br />
 
 Modern **React migration** of the legacy jQuery-powered **HRnet project (OpenClassrooms)**. HRnet is an internal employee management tool for a fictional company.
 
-Built with a custom React plugin : [**@aalexandree-g/hrnet-plugin-datepicker**](https://github.com/aalexandree-g/P14-plugin/).
+Built with a custom reusable React plugin :
+[**@aalexandree-g/hrnet-modal**](https://github.com/aalexandree-g/P14-modal)
+(Developed to replace the legacy jQuery modal and improve accessibility and maintainability)
 
 ## Tech stack
 
@@ -88,8 +100,17 @@ npm run dev
 
 - Fully controlled form with validation
 - Custom dropdown selects (Department, State)
-- Custom DatePicker plugin
-- Success modal on form submission
+- Feedback system powered by a reusable custom React modal plugin
+- Success and error states handled via a centralized modal logic
+
+## Custom React Plugin
+
+This project includes a custom reusable modal developed as a standalone npm package:
+
+- [**GitHub link**](https://github.com/aalexandree-g/P14-modal)
+- [**npm link**](https://www.npmjs.com/package/@aalexandree-g/hrnet-modal)
+- Accessible (keyboard navigation, focus management)
+- Easily integrable into any React application
 
 ## 📸 Screenshots
 

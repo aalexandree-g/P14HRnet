@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NAME_REGEX } from '../data/formRegex'
+import { NAME_REGEX } from '../data/form/formRegex'
 
 /**
  * Custom React hook managing the employee creation form.

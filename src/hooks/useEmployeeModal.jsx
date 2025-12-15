@@ -33,10 +33,8 @@ import { useHrnetModal } from '@aalexandree-g/hrnet-modal'
  * @property {Function} closeModal - Closes the currently open modal.
  */
 export const useEmployeeModal = () => {
-  // Generic modal state from the external plugin
   const { isOpen, open, close } = useHrnetModal()
 
-  // HRnet-specific config (content + variant)
   const [modalConfig, setModalConfig] = useState({
     title: '',
     message: '',

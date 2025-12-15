@@ -13,7 +13,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aalexandree-g/hrnet-modal": "^1.0.7",
+    "@aalexandree-g/hrnet-modal": "^1.0.9",
     "@reduxjs/toolkit": "^2.10.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.553.0",
@@ -23,8 +23,7 @@
     "react-datepicker": "^9.0.0",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.5",
-    "sass": "^1.94.0"
+    "react-router-dom": "^7.9.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -36,6 +35,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
+    "sass": "^1.94.0",
     "vite": "^7.2.2"
   }
 }

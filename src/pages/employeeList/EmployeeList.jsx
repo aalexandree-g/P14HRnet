@@ -1,23 +1,38 @@
-import { useState, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import DataTable from 'react-data-table-component'
+import { loadEmployees } from '../../data/employees/employeesSource'
+import { setEmployees } from '../../store/employeesSlice'
 import { employeeTableStyles } from '../../components/ui/table/employeeTableStyles'
 import { employeeColumns } from '../../components/ui/table/employeeColumns'
 
 import Header from '../../components/header/Header'
 import EmployeeSearchBar from '../../components/ui/search/EmployeeSearchBar'
 
-/**
- * EmployeeList component.
- *
- * Displays the list of employees in a sortable, paginated data table
- * using `react-data-table-component`. Data is read from the Redux store.
- *
- * @returns {JSX.Element} The employee list page.
- */
+const SEARCH_FIELDS = [
+  'firstName',
+  'lastName',
+  'birthDate',
+  'startDate',
+  'street',
+  'department',
+  'city',
+  'state',
+  'zipCode',
+]
+
 const EmployeeList = () => {
-  const employees = useSelector((state) => state.employees.list || [])
+  const dispatch = useDispatch()
+  const employees = useSelector((state) => state.employees.list)
   const [searchText, setSearchText] = useState('')
+
+  useEffect(() => {
+    if (employees.length > 0) return
+
+    loadEmployees()
+      .then((data) => dispatch(setEmployees(data)))
+      .catch(console.error)
+  }, [dispatch, employees.length])
 
   const filteredEmployees = useMemo(() => {
     const trimmed = searchText.trim()
@@ -25,28 +40,12 @@ const EmployeeList = () => {
 
     const lower = trimmed.toLowerCase()
 
-    const normalize = (value) => {
-      if (value === null || value === undefined) return ''
-      return value.toString().toLowerCase()
-    }
-
-    return employees.filter((employee) => {
-      const searchable = [
-        employee.firstName,
-        employee.lastName,
-        employee.birthDate,
-        employee.startDate,
-        employee.department,
-        employee.street,
-        employee.city,
-        employee.state,
-        employee.zipCode,
-      ]
-        .map(normalize)
+    return employees.filter((employee) =>
+      SEARCH_FIELDS.map((key) => employee[key] ?? '')
         .join(' ')
-
-      return searchable.includes(lower)
-    })
+        .toLowerCase()
+        .includes(lower)
+    )
   }, [employees, searchText])
 
   return (

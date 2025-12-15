@@ -10,8 +10,8 @@ import { HrnetModal } from '@aalexandree-g/hrnet-modal'
 import { useEmployeeForm } from '../../hooks/useEmployeeForm'
 import { useEmployeeModal } from '../../hooks/useEmployeeModal'
 
-import { DEPARTMENTS, US_STATES } from '../../data/formSelectData'
-import { NAME_REGEX, ZIPCODE_REGEX } from '../../data/formRegex'
+import { DEPARTMENTS, US_STATES } from '../../data/form/formSelectData'
+import { NAME_REGEX, ZIPCODE_REGEX } from '../../data/form/formRegex'
 
 import {
   formatName,
@@ -20,6 +20,27 @@ import {
   toDateString,
 } from '../../utils/formFormatters'
 
+/**
+ * EmployeeCreate page.
+ *
+ * React page responsible for creating a new employee.
+ * It renders a complete employee creation form, handles validation,
+ * dispatches the new employee to the Redux store, and provides user feedback
+ * through an accessible modal dialog.
+ *
+ * The component relies on:
+ * - `useEmployeeForm` for form state management and validation logic
+ * - `useEmployeeModal` for modal state and feedback messages
+ * - Redux Toolkit for persisting employees in the global store
+ *
+ * Form data is validated and formatted before submission.
+ * Date values are handled as JavaScript `Date` objects and converted
+ * to formatted strings only at submission time.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} Employee creation page.
+ */
 const EmployeeCreate = () => {
   const dispatch = useDispatch()
   const { modalConfig, showError, showSuccess, closeModal } = useEmployeeModal()
